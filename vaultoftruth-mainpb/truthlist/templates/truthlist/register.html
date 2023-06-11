@@ -1,0 +1,36 @@
+{% extends 'truthlist/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="d-flex justify-content-center">
+    <form class="card mt-5 p-5" style="min-width: 600px;" action="{% url 'register' %}" method="POST">{% csrf_token %}
+        <h1 class="text-center">Register</h1>
+        <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input required type="text" class="form-control" placeholder="Enter First Name" id="firstname" name="firstname">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input required type="text" class="form-control" placeholder="Enter Last Name" id="lastname" name="lastname">
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input required type="text" class="form-control" placeholder="Enter Email Address" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input required type="password" class="form-control" placeholder="Enter Password" id="password" name="password">
+        </div>
+        <div class="form-group">
+            <label for="confirmpassword">Confirm Password</label>
+            <input required type="password" class="form-control" placeholder="Enter Confirm Password" id="confirmpassword" name="confirmpassword">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">Register</button>
+        </div>
+        <a href="/login">Already have an account? Login</a>
+
+    </form>
+</div>
+
+{% endblock %}

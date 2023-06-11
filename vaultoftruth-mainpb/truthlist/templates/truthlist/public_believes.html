@@ -1,0 +1,74 @@
+{% extends 'truthlist/base.html' %}
+{% load static %}
+{% block content %}
+<form class="container my-5">
+    <h2 style ="text-align:center"class="">Truth List</h2>
+    <table class="table mt-3">
+        <thead style="position: sticky; top: 60px; z-index: 1; background-color: white;">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Question</th>
+            <th scope="col">Argument</th>
+            <th scope="col">Truth/Lie</th>
+            <th scope="col">General public</th>
+            <th scope="col">% Of public believes</th>
+            <th scope="col">Total vote</th>
+            <th scope="col">Total agree</th>
+            <th scope="col">Total disagree</th>
+            <th scope="col">Total no comment</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            {% for data in user_answer %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ data.question }}</td>
+                <td>
+                    <a href="{% url 'reasons' data.question.id %}">Reason</a>
+                </td>
+                {% if data.general_public.0 == 'Agree' and data.general_public.1 >= 80 %}
+                    <td style="background-color: green;">
+                        Truth
+                    </td>
+                {% elif data.general_public.0 == 'Disagree' and data.general_public.1 >= 80 %}
+                    <td style="background-color: red;">
+                        Lie
+                    </td>
+                {% else %}
+                    <td style="background-color: yellow;">
+                        Middle
+                    </td>
+                {% endif %}
+                <td>
+                    {{ data.general_public.0 }}
+                </td>
+                <td>
+                    {{ data.general_public.1 }}%
+                </td>
+                <td>
+                    {{ data.general_public.2 }}
+                </td>
+                <td>
+                    {{ data.general_public.3 }}
+                </td>
+                <td>
+                    {{ data.general_public.4 }}
+                </td>
+                <td>
+                    {{ data.general_public.5 }} <!--the 5 is the index of what is in the return section of the model function and general_public is teh function under the user_answer class in models linked to public believe views-->
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</form>
+<br><br><br><br><br>
+
+<script>
+    function add_to_certtificate(value, id){
+        window.location.href = "/add_to_certificate/"+id+"/"+value;
+    }
+</script>
+
+{% endblock %}

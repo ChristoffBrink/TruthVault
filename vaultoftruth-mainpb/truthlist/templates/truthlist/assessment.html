@@ -1,0 +1,41 @@
+{% extends 'truthlist/base.html' %}
+{% load static %}
+{% block content %}
+
+<form class="container my-5" action="{% url 'assessment' %}" method="POST">
+    {% csrf_token %}
+    <h2 style ="text-align:center" class="">Truth List</h2>
+    <table class="table mt-3">
+        <thead style="position: sticky; top: 60px; z-index: 1; background-color: white;">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Question</th>
+            <th scope="col">Agree</th>
+            <th scope="col">Disagree</th>
+            <th scope="col">No Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            {% for data in questions %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ data.question }}</td>
+                <td>
+                    <input class="radio-btn" type="radio" name="{{ data.id }}" value="agree">
+                </td>
+                <td>
+                    <input class="radio-btn" type="radio" name="{{ data.id }}" value="disagree">
+                </td>
+                <td>
+                    <input class="radio-btn" type="radio" name="{{ data.id }}" value="no_comment">
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-center mb-5 mt-3">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+{% endblock %}

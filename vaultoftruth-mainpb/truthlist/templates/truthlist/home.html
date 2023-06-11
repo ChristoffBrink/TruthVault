@@ -1,0 +1,43 @@
+{% extends 'truthlist/base.html' %}
+{% load static %}
+{% block content %}
+
+<div style="background-image: url('{% static 'truthlist/Truth.jpeg' %}'); background-size: cover; background-position: center; height: 100vh; width: 100vw; position: fixed; top: 0; left: 0; z-index: -1;">
+    <div class="container" style="display: flex; flex-direction: column; justify-content: end; height: 80vh;text-align: right;">
+        <p style="font-size: 22px;">
+            Facilitating the search for Truth
+        </p>
+        <h1>
+            The Truth shall<br>
+            set you free
+        </h1>
+        {% if user.is_authenticated %}
+            <a href="{% url 'assessment' %}" >
+                <button class="bg-primary border-0 text-white mt-3" style="width: 200px; height: 50px; font-weight: bold;">
+                    Assessment
+                </button>
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}" >
+                <button class="bg-primary border-0 text-white mt-3" style="width: 200px; height: 50px; font-weight: bold;">
+                Log in
+                </button>
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+
+<br><br><br><br><br>
+
+<script>
+    const radioBtns = document.querySelectorAll('.radio-btn');
+    radioBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if ('{{user.is_authenticated}}' == 'False'){
+                window.location.href = "{% url 'login' %}";
+            }
+        })
+    })
+</script>
+{% endblock %}

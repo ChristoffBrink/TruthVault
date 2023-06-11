@@ -1,0 +1,39 @@
+{% extends 'truthlist/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="">Pending Questions</h2>
+    {% if questions %}
+        <table class="table mt-3">
+            <thead style="position: sticky; top: 60px; z-index: 1; background-color: white;">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Question</th>
+                <th scope="col">Category</th>
+                <th scope="col">Is Fundamental</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+                {% for q in questions %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ q.question }}</td>
+                    <td>{{ q.category.name }}</td>
+                    <td>{{ q.is_fundamental }}</td>
+                    <td>
+                        <a class="btn btn-sm mr-1 btn-primary" {% if user.is_superuser %} href="{% url 'approve_question' q.id %}" {% else %} onclick="alert('You are not authorized to perform this action')" {% endif %}
+                        >Approve</a>
+                        <a class="btn btn-sm btn-danger" {% if user.is_superuser %} href="{% url 'reject_question' q.id %}" {% else %} onclick="alert('You are not authorized to perform this action')" {% endif %}
+                        >Reject</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No pending questions</p>
+    {% endif %}
+</div>
+{% endblock %}

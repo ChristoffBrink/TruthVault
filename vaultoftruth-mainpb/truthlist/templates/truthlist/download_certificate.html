@@ -1,0 +1,50 @@
+{% extends 'truthlist/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container my-5">
+    <form action="{% url 'download_certificate' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Download</button>
+    </form>
+    <table class="table mt-3">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Question</th>
+            <th scope="col">Your Believe</th>
+            <th scope="col">General public</th>
+            <th scope="col">% Of public believes</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            {% for data in questions %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ data.question }}</td>
+                <td>
+                    {% if data.answer == 'agree' %} 
+                        Agree 
+                    {% elif data.answer == 'disagree' %}
+                        Disagree
+                    {% else %}
+                        No Comment
+                    {% endif %}
+                </td>
+                <td>
+                    {{ data.general_public.0 }}
+                </td>
+                <td>
+                    {{ data.general_public.1 }}%
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<br><br><br><br><br>
+
+<script>
+</script>
+
+{% endblock %}

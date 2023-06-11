@@ -1,0 +1,30 @@
+{% extends 'truthlist/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="d-flex justify-content-center mt-5">
+    <form class="card p-5" action="{% url 'add_new_question' %}" method="post">
+        <h4 class="text-center">What is the question you would like to add?</h4>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" required name="category" id="category">
+                <option value="">Select Category</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="question">Paste your Question as statement</label>
+            <input required type="text" class="form-control" name="question" id="question" placeholder="Enter Question">
+        </div>
+        <div class="form-group">
+            <label for="is_fundamental">Is Fundamental</label>
+            <input type="checkbox" name="is_fundamental" id="is_fundamental">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Question</button>
+    </form>
+</div>
+
+{% endblock %}

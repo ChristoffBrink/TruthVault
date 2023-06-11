@@ -1,0 +1,15 @@
+{% extends 'truthlist/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="d-flex justify-content-center mt-5">
+    <form class="card p-5" action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h5 class="text-center mb-4">Upload Excel File</h5>
+        <input type="file" name="file" id="file" accept=".xlsx" class="form-control p-1">
+        <br>
+        <input type="submit" value="Upload" class="btn btn-primary">
+    </form>
+</div>
+
+{% endblock %}
